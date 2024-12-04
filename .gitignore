@@ -2,7 +2,6 @@
 node_modules
 build
 tmp
-
 # Secrets
 .env
 .env.local
@@ -20,6 +19,5 @@ yarn-error.log
 .fleet
 .idea
 .vscode
-
 # Platform specific
 .DS_Store
