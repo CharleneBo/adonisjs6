@@ -26,6 +26,8 @@ router
         status: 404,
       })
     }
+
+    return ctx.view.render('pages/movies/show')
   })
   .as('movies.show')
   .where('slug', router.matchers.slug())
