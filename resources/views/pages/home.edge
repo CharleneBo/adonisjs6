@@ -19,6 +19,19 @@
       <h1>
         It works !
       </h1>
+  
+      @each(movie in movies)
+  
+      <ul>
+        <li>
+          <a href="{{ route('movies.show', { slug: movie.slug }) }}">
+            {{ movie.title }}
+          </a>
+        </li>
+      </ul>
+        
+      @end
+      
     </body>
   </div>
 </html>
