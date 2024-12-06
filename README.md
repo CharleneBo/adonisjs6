@@ -7,7 +7,8 @@ Repository Adonisjs following adocast videos.
 ```bash
 nodejs version : 22
 git version 2.46.0.windows.1
-pg version : 16.x
+pgAdmin4 version : 8.13
+PostgreSQL version : 17.2
 ```
 
 ## Install a local DB
@@ -23,8 +24,7 @@ ALTER DATABASE db_adonis2 OWNER TO user_adonis2;
 
 copy .env.example into .env
 
-BDD:
-```
+```env
 DB_HOST=127.0.0.1
 DB_PORT=5432
 DB_USER=user_adonis2
@@ -38,3 +38,9 @@ DB_DATABASE=db_adonis2
 npm install
 npm run dev
 ```
+
+## Access the project on your local Server
+
+Once the server is running, open your browser and navigate to:
+
+<http://localhost:3333>
