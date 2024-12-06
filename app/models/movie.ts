@@ -1,7 +1,7 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+
 import { MovieService } from '#services/movie_service'
 import { toHtml } from '@dimerapp/markdown/utils'
+import cache from '#services/cache_service'
 
 export default class Movie {
 
@@ -12,6 +12,10 @@ declare abstract: string
 
 static async find(slug: string){
 
+  if(cache.has(slug)){
+    console.log(`Cache hit: ${slug}`)
+    return cache.get(slug)
+  }
   const md = await MovieService.read(slug)
   const movie = new Movie()
 
@@ -20,11 +24,13 @@ static async find(slug: string){
   movie.slug = slug
   movie.abstract = toHtml(md).contents
 
+  cache.set(slug, movie)
+
   return movie
 }
 
 static async all(){
-  
+
   const slugs = await MovieService.getSlugs()
   const movies: Movie[] = []
 
