@@ -10,12 +10,7 @@
       </title>
     </head>
     <body>
-      <nav>
-        <a href="{{ route ('home') }}">Home</a>
-        <a href="{{ route ('movies.show',{slug: 'my-awesome-movie'}) }}">My awesome movie</a>
-        <a href="{{ route ('movies.show',{slug: 'another-awesome-movie'}) }}">Another awesome movie</a>
-        <a href="{{ route ('movies.show',{slug: 'my-awesome-movie-the-trilogy'}) }}">My awesome movie the trilogy</a>
-      </nav>
+  @include('partials/nav.edge')
       <div class="box">
         <h1>
           It works !
@@ -23,15 +18,36 @@
         <h3 class="text-xl">
           Chose your movie !
         </h3>
-        @each(movie in movies)
-          <ul>
-            <li>
+        
+
+          <ul class="flex flex-col gap-4">
+
+            @each((movie,index) in movies)
+              @let(isFirst = index === 0)
+
+            <li {{
+              html.attrs({
+
+                id: movie.slug ,
+                class: [
+                   'p-4 border',
+                   {
+                    'border-blue-500': isFirst
+                  } 
+
+                ]
+              })
+            }}>
               <a
                 class="text-blue-500 underline hover:text-fuchsia-600"
-                href="{{ route('movies.show', { slug: movie.slug }) }}"
+                href="{{ route('movies.show', { slug: movie.slug }) }}" class="font-bold"
               >
                 {{ movie.title }}
           </a>
+          <p class="text-slate-600">
+            {{truncate(movie.summary,50,{completeWords:true})}}
+
+          </p>
             </li>
           </ul>
         @end
