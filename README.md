@@ -6,8 +6,7 @@ Repository Adonisjs following adocast videos.
 
 ```bash
 nodejs version : 22
-git version 2.46.0.windows.1
-pgAdmin4 version : 8.13
+git version 2.46.0
 PostgreSQL version : 17.2
 ```
 
@@ -24,22 +23,17 @@ ALTER DATABASE db_adonis2 OWNER TO user_adonis2;
 
 copy .env.example into .env
 
-```env
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_USER=user_adonis2
-DB_PASSWORD=password
-DB_DATABASE=db_adonis2
-```
-
 ## Install redis
 
 Everything you need to know on how to install redis is here :
 [http://redis.io/docs/install-redis/](https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/)
 
 After installing redis, if you have Linux, open and type in your `terminal`, or use your `WSL2` :
+
 ```bash
 redis-cli
+>ping
+#PONG
 ```
 
 ## Install project locally
