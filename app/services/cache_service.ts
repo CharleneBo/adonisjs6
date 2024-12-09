@@ -1,18 +1,21 @@
+import redis from '@adonisjs/redis/services/main'
+
 export class CacheService {
-
-  #store: Record<string, any> = {}
-
-  has(key: string){
-    return key in this.#store
+  async has(...keys: string[]) {
+    return redis.exists(keys)
   }
-  get(key: string){
-    return this.#store[key]
+  async get(key: string) {
+    const value = await redis.get(key)
+    return value && JSON.parse(value)
   }
-  set(key: string,value: any){
-     this.#store[key] = value
+  async set(key: string, value: any) {
+    return redis.set(key, JSON.stringify(value))
   }
-  delete(key: string){
-    delete this.#store[key]
+  async delete(...keys: string[]) {
+    return redis.del(keys)
+  }
+  async flushDb() {
+    return redis.flushdb()
   }
 }
 
