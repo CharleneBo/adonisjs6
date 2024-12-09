@@ -32,10 +32,21 @@ DB_PASSWORD=password
 DB_DATABASE=db_adonis2
 ```
 
+## Install redis
+
+Everything you need to know on how to install redis is here :
+[http://redis.io/docs/install-redis/](https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/)
+
+After installing redis, if you have Linux, open and type in your `terminal`, or use your `WSL2` :
+```bash
+redis-cli
+```
+
 ## Install project locally
 
 ```shell
 npm install
+node ace configure @adonisjs/redis
 npm run dev
 ```
 
