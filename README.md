@@ -12,6 +12,13 @@ PostgreSQL version : 17.2
 
 ## Install a local DB
 
+Open SQL CLI
+
+- Linux or mac: `sudo -u postgres psql`
+- Windows: `psql -U postgres`
+
+Windows: you will need to provide the password set during the installation unless you ran it as an administrator.
+
 ```sql
 CREATE DATABASE db_adonis2;
 CREATE USER user_adonis2 WITH SUPERUSER PASSWORD 'password';
