@@ -1,7 +1,7 @@
 @vite(['resources/css/app.css'])
 <!DOCTYPE html>
 <html>
-  <div class="text-lg mx-auto mt-6">
+  <div class="text-lg">
     <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,47 +10,24 @@
       </title>
     </head>
     <body>
-  @include('partials/nav.edge')
-      <div class="box">
-        <h1>
-          It works !
-        </h1>
-        <h3 class="text-xl">
-          Chose your movie !
-        </h3>
-        
-
-          <ul class="flex flex-col gap-4">
-
-            @each((movie,index) in movies)
-              @let(isFirst = index === 0)
-
-            <li {{
-              html.attrs({
-
-                id: movie.slug ,
-                class: [
-                   'p-4 border',
-                   {
-                    'border-blue-500': isFirst
-                  } 
-
-                ]
-              })
-            }}>
-              <a
-                class="text-blue-500 underline hover:text-fuchsia-600"
-                href="{{ route('movies.show', { slug: movie.slug }) }}" class="font-bold"
-              >
-                {{ movie.title }}
-          </a>
-          <p class="text-slate-600">
-            {{truncate(movie.summary,50,{completeWords:true})}}
-
-          </p>
-            </li>
-          </ul>
-        @end
+      @include('partials/nav.edge')
+      <div class="max-w-7xl mx-auto mt-6">
+        <div class="box">
+          <h1>
+            It works !
+          </h1>
+          
+          <h3 class="text-xl">
+            Chose your movie !
+          </h3>
+          <div class="flex flex-wrap -mx-6">
+            @each (movie in movies)
+              <div class="w-full lg:w-1/3 px-3">
+                @!movie.card({ movie, class: 'w-full' })
+              </div>
+            @end
+          </div>
+        </div>
       </div>
     </body>
   </div>

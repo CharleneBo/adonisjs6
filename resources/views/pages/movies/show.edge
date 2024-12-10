@@ -1,26 +1,27 @@
 @vite(['resources/css/app.css'])
 <!DOCTYPE html>
 <html>
-  <div class="text-lg mx-auto mt-6">
+  <div class="text-lg mx-auto">
     <head>
+      @include('partials/nav.edge')
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
     <body>
-    @include('partials/nav.edge')
-      <div class="box">
-        <h1>
-          {{ movie.title }}
-        </h1>
-    @if (movie.abstract)
-      <div class="my-8 bg-slate-100 rounded-xl p-8">
-        {{{ movie.abstract }}}
+      <div class="max-w-7xl mx-auto mt-6">
+        <div class="box">
+          <h1>
+            {{ movie.title }}
+          </h1>
+          @if (movie.abstract)
+            <div class="my-8 bg-slate-100 rounded-xl p-8">
+              {{{ movie.abstract }}}
+            </div>
+          @else
+            No abstract
+          @endif
+          
+        </div>
       </div>
-    @else
-      No abstract
-    @endif
-
-      </div>
-    </div>
-  </body>
-</html>
+    </body>
+  </html>
