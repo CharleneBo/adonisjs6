@@ -20,7 +20,7 @@ Open SQL CLI
 Windows or Linux: you will need to provide the password set during the installation unless you ran it as an administrator.
 
 ```sql
-CREATE DATABASE db_adonis2;
+CREATE DATABASE db_adonisjs6;
 CREATE USER user_adonis2 WITH SUPERUSER PASSWORD 'password';
 GRANT ALL PRIVILEGES ON DATABASE db_adonis2 TO user_adonis2;
 ALTER DATABASE db_adonis2 OWNER TO user_adonis2;
@@ -48,6 +48,7 @@ redis-cli
 ```shell
 npm install
 node ace configure @adonisjs/redis
+node ace migration:run
 npm run dev
 ```
 
