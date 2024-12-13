@@ -17,7 +17,7 @@ Open SQL CLI
 - Linux or mac: `sudo -u postgres psql`
 - Windows: `psql -U postgres`
 
-Windows: you will need to provide the password set during the installation unless you ran it as an administrator.
+Windows or Linux: you will need to provide the password set during the installation unless you ran it as an administrator.
 
 ```sql
 CREATE DATABASE db_adonis2;
