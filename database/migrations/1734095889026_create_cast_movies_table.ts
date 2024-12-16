@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id').notNullable()
       table.integer('cineast_id').unsigned().references('cineasts.id').notNullable()
       table.integer('movie_id').unsigned().references('movies.id').notNullable()
-      table.string('character_name',200).notNullable().defaultTo('')
+      table.string('character_name', 200).notNullable().defaultTo('')
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').notNullable()
     })

@@ -13,6 +13,7 @@ export default class extends BaseSchema {
       table.string('password').notNullable()
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
+      table.string('avatar_url').notNullable()
     })
   }
 
