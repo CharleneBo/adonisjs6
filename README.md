@@ -49,8 +49,7 @@ redis-cli
 npm install
 node ace configure @adonisjs/redis
 node ace migration:run
-node ace db:seed --files=database/seeders/start_seeder.ts
-node ace db:seed --files=database/seeders/fake_seeder.ts
+node ace db:seed
 npm run dev
 ```
 
