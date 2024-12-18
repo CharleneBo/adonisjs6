@@ -79,7 +79,7 @@ export default class Movie extends BaseModel {
     }
 
     const incrementors = rows.reduce<number[]>((result, row) => {
-      const tokens = row.slug.toLowerCase().split('${slug}-')
+      const tokens = row.slug.toLowerCase().split(`${slug}-`)
 
       if (tokens.length < 2) {
         return result
@@ -94,6 +94,6 @@ export default class Movie extends BaseModel {
     }, [])
 
     const increment = incrementors.length ? Math.max(...incrementors) + 1 : 1
-    movie.slug = '${slug}-${increments}'
+    movie.slug = `${slug}-${increment}`
   }
 }
