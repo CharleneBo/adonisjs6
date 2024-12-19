@@ -1,0 +1,21 @@
+@layout()
+
+  <h1 class="flex items-center justify-center">
+    Writer
+  </h1>
+  <div class="flex text-center justify-center">
+  <ul>
+    @each (writer in writers)
+      <li>
+        <a class="hover:text-fuchsia-600" href="{{ route('writers.show', { id: writer.id })}}">
+          {{ writer.fullName }}
+          <span class="text-slate-400">
+            ( {{ writer.$extras.releasedCount }} Released, {{ writer.$extras.notReleasedCount }} Not Released )
+          </span>
+        </a>
+      </li>
+
+    @endeach
+  </ul>
+</div>
+@end
