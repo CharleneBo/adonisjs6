@@ -1,0 +1,18 @@
+@layout()
+
+  <h1 class="flex items-center justify-center">
+    Directors
+  </h1>
+  <div class="flex text-center justify-center">
+  <ul>
+    @each (director in directors)
+      <li>
+        <a class="hover:text-fuchsia-600" href="{{ route('directors.show', { id: director.id })}}">
+          {{ director.fullName }}
+        </a>
+      </li>
+
+    @endeach
+  </ul>
+</div>
+@end
