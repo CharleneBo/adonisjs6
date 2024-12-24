@@ -3,6 +3,7 @@ import { CineastFactory } from '#database/factories/cineast_factory'
 import { MovieFactory } from '#database/factories/movie_factory'
 import { UserFactory } from '#database/factories/user_factory'
 import MovieStatuses from '#enums/movie_statuses'
+import Roles from '#enums/roles'
 import Cineast from '#models/cineast'
 import Movie from '#models/movie'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
@@ -26,6 +27,12 @@ export default class extends BaseSeeder {
     const cineasts = await CineastFactory.createMany(100)
     await UserFactory.with('profile').createMany(5)
     await this.#createMovies(cineasts)
+    await UserFactory.merge({
+      roleId: Roles.ADMIN,
+      email: 'admin@example.com',
+      fullName: 'Admin User',
+      password: '12345678',
+    }).create()
   }
 
   async #createMovies(cineasts: Cineast[]) {
