@@ -22,7 +22,7 @@ nav {
    flex flex-wrap items-center
 }
 
-nav a {
+nav a, button {
   @apply p-3 hover:bg-fuchsia-600
 }
 
