@@ -18,16 +18,22 @@
             value: filters.search
           })
 
-          @form.input({ type: 'select', label: 'Sort', name: 'sort' }) 
+          @form.input({ type: 'select', label: 'Sort', name: 'sort' })
             @each (item in movieSortOptions)
-              <option value="{{ item.id }}" {{ html.attrs({ selected: item.id == filters.sort }) }}>{{ item.text }}</option>
+              <option value="{{ item.id }}" {{ html.attrs({ selected: item.id == filters.sort }) }}>
+                {{ item.text }}
+              </option>
             @endeach
           @end
-
-          @form.input({ type: 'select', label: 'Status', name: 'status' }) 
-            <option value="">All</option>
+          
+          @form.input({ type: 'select', label: 'Status', name: 'status' })
+            <option value="">
+              All
+            </option>
             @each (status in movieStatuses)
-              <option value="{{ status.id }}" {{ html.attrs({ selected: status.id == filters.status }) }}>{{ status.name }}</option>
+              <option value="{{ status.id }}" {{ html.attrs({ selected: status.id == filters.status }) }}>
+                {{ status.name }}
+              </option>
             @endeach
           @end
           @button({ type: 'submit'})
@@ -43,5 +49,24 @@
         @end
       </div>
     </div>
+  </div>
+
+  <div class="flex items-center gap-2">
+    @each(item in pagination)
+      <a
+        href="{{ item.url }}"
+        {{ html.attrs({
+          href: item.url,
+          class: [
+            'w-8 h-8 flex items-center justify-center border border-slate-200 rounded',
+            {'bg-slate-100 border-indigo-500': item.isActive}
+          ]
+        }) }}
+      >
+        {{ item.page }}
+    </a>
+
+    @endeach
+    
   </div>
 @end
