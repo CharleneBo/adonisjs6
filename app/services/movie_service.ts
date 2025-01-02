@@ -19,7 +19,6 @@ export class MovieService {
     { id: 'writer_desc', text: 'Writer Name (desc)', field: 'cineasts.last_name', dir: 'desc' },
   ]
   static getFiltered(
-    page: number = 1,
     filters: Infer<typeof movieFilterValidator>,
     user: User | undefined = undefined
   ) {
@@ -39,6 +38,5 @@ export class MovieService {
       .preload('status')
       .orderBy(sort.field, sort.dir)
       .select('movies.*')
-      .paginate(page, 15)
   }
 }

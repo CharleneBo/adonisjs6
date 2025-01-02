@@ -26,6 +26,7 @@ router
   .as('movies.show')
   .where('slug', router.matchers.slug())
 
+router.get('/watchlist', [WatchlistsController, 'index']).as('watchlists.index')
 router.post('/watchlists/:movieId/toggle', [WatchlistsController, 'toggle']).as('watchlists.toggle')
 
 router.delete('/redis/flush', [RedisController, 'flush']).as('redis.flush')
