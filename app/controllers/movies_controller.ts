@@ -22,9 +22,6 @@ export default class MoviesController {
     const rangeMin = movies.currentPage - 3
     const rangeMax = movies.currentPage + 3
     let pagination = movies.getUrlsForRange(1, movies.lastPage).filter((item) => {
-      if (item.page === 1 || item.page === movies.lastPage) {
-        return true
-      }
       return item.page >= rangeMin && item.page <= rangeMax
     })
 
@@ -41,6 +38,7 @@ export default class MoviesController {
       movieSortOptions,
       filters,
       pagination,
+      qs,
     })
   }
 
