@@ -14,6 +14,7 @@ const RegisterController = () => import('#controllers/auth/register_controller')
 const LoginController = () => import('#controllers/auth/login_controller')
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+const WatchlistsController = () => import('#controllers/watchlists_controller')
 const HomeController = () => import('#controllers/home_controller')
 const LogoutController = () => import('#controllers/auth/logout_controller')
 const MoviesController = () => import('#controllers/movies_controller')
@@ -24,6 +25,8 @@ router
   .get('/movies/:slug', [MoviesController, 'show'])
   .as('movies.show')
   .where('slug', router.matchers.slug())
+
+router.post('/watchlists/:movieId/toggle', [WatchlistsController, 'toggle']).as('watchlists.toggle')
 
 router.delete('/redis/flush', [RedisController, 'flush']).as('redis.flush')
 router.delete('/redis/:slug', [RedisController, 'destroy']).as('redis.destroy')
