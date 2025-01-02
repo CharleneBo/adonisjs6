@@ -8,7 +8,7 @@ export const movieFilterValidator = vine.compile(
       .number()
       .exists(async (db, value) => {
         if (!value) return true
-        const exists = await db.from('movies_statuses').select('id').where('id', value).first()
+        const exists = await db.from('movie_statuses').select('id').where('id', value).first()
         return !!exists
       })
       .optional(),
