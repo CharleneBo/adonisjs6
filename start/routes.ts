@@ -42,6 +42,7 @@ router.delete('/redis/flush', [RedisController, 'flush']).as('redis.flush')
 router.delete('/redis/:slug', [RedisController, 'destroy']).as('redis.destroy')
 
 router.get('/profile/edit', [ProfilesController, 'edit']).as('profiles.edit').use(middleware.auth())
+router.put('/profiles', [ProfilesController, 'update']).as('profiles.update').use(middleware.auth())
 
 router.get('/directors', [DirectorsController, 'index']).as('directors.index')
 router.get('/directors/:id', [DirectorsController, 'show']).as('directors.show')
