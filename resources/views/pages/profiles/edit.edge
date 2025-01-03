@@ -7,7 +7,7 @@
       <form method="POST" action="{{ route('profiles.update', {}, { qs: { _method: 'PUT' } })}}" class="flex flex-col gap-4">
         {{ csrfField() }}
 
-        @error('E_INVALID_CREDENTIALS')
+        @error('form')
         <p role="alert" class="text-red-500 bg-red-50 p-3 rounded text-xs">
           {{ $message }}
         </p>
