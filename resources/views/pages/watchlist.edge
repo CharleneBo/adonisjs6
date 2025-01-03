@@ -44,7 +44,17 @@
       <div class="flex flex-wrap -mx-6 mt-5">
         @each (movie in movies)
           <div class="w-full lg:w-1/3 px-3">
-            @!movie.card({ movie, class: 'w-full', showWriterDirector: true, showStatus: true })
+            @movie.card({ movie, class: 'w-full', showWriterDirector: true, showStatus: true })
+              @slot('action')
+                @let(watchlist = movie.watchlist.at(0))
+                <form method="POST" action="{{ route('watchlists.toggle.watched', { movieId: movie.id }) }}">
+                  {{ csrfField() }}
+                  @button({ type: 'submit'})
+                    {{ watchlist.watchedAt ? 'Mark As Unwatched' : 'Mark As Watched' }}
+                  @end
+                </form>
+              @endslot
+            @end
           </div>
         @end
       </div>
@@ -58,7 +68,6 @@
         href="{{ movies.getUrl(movies.firstPage) }}{{ qs ? `&${qs}` : '' }}"
         class="w-8 h-8 flex items-center justify-center border border-slate-200 rounded"
       >
-      <<
       </a>
     @endif
     @if (movies.currentPage > movies.firstPage)
@@ -66,7 +75,6 @@
         href="{{ movies.getPreviousPageUrl() }}{{ qs ? `&${qs}` : '' }}"
         class="w-8 h-8 flex items-center justify-center border border-slate-200 rounded"
       >
-      <
       </a>
     @endif
     

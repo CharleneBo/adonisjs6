@@ -26,8 +26,16 @@ router
   .as('movies.show')
   .where('slug', router.matchers.slug())
 
-router.get('/watchlist', [WatchlistsController, 'index']).as('watchlists.index')
-router.post('/watchlists/:movieId/toggle', [WatchlistsController, 'toggle']).as('watchlists.toggle')
+router
+  .group(() => {
+    router.get('/watchlist', [WatchlistsController, 'index']).as('index')
+    router.post('/watchlists/:movieId/toggle', [WatchlistsController, 'toggle']).as('toggle')
+    router
+      .post('/watchlists/:movieId/toggle-watched', [WatchlistsController, 'toggleWatched'])
+      .as('toggle.watched')
+  })
+  .as('watchlists')
+  .use(middleware.auth())
 
 router.delete('/redis/flush', [RedisController, 'flush']).as('redis.flush')
 router.delete('/redis/:slug', [RedisController, 'destroy']).as('redis.destroy')
