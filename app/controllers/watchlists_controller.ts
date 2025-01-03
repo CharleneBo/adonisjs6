@@ -12,9 +12,12 @@ export default class WatchlistsController {
     const page = request.input('page', 1)
     const filters = await watchlistFilterValidator.validate(request.qs())
     const movies = await MovieService.getFiltered(filters, auth.user)
-      .whereHas('watchlist', (query) => query.where('userId', auth.user!.id))
-      .if(filters.watched === 'watched', (watchlist) => watchlist.whereNotNull('watchedAt'))
-      .if(filters.watched === 'unwatched', (watchlist) => watchlist.whereNull('watchedAt'))
+      .whereHas('watchlist', (query) =>
+        query
+          .where('userId', auth.user!.id)
+          .if(filters.watched === 'watched', (watchlist) => watchlist.whereNotNull('watchedAt'))
+          .if(filters.watched === 'unwatched', (watchlist) => watchlist.whereNull('watchedAt'))
+      )
       .paginate(page, 15)
 
     const movieStatuses = await MovieStatus.query().orderBy('name').select('id', 'name')
