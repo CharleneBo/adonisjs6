@@ -25,6 +25,12 @@
               </option>
             @endeach
           @end
+
+           @form.input({ type: 'select', label: 'Watched', name: 'watched' })
+              <option value="all" {{ html.attrs({ selected: filters.watched === 'all'}) }}>All</option>
+              <option value="watched" {{ html.attrs({ selected: filters.watched === 'watched'}) }}>Watched</option>
+              <option value="unwatched" {{ html.attrs({ selected: filters.watched === 'unwatched'}) }}>not Watched</option>
+          @end
           
           @form.input({ type: 'select', label: 'Status', name: 'status' })
             <option value="">
