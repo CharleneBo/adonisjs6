@@ -7,8 +7,8 @@
   </div>
 
   <div class="flex items-center">
-    @if (auth.user && auth.user.roleId === 2)
-    <a href="{{ route ('admin.index') }}">Admin</a>
+    @if (auth.user && auth.user.roleId === Roles.ADMIN)
+    <a href="{{ route ('admin.dashboard') }}">Admin</a>
     @endif
     @if (auth.user)
     <div class="flex items-center gap-3">

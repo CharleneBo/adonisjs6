@@ -1,0 +1,29 @@
+@vite(['resources/css/app.css'])
+<!DOCTYPE html>
+<html>
+  <div class="text-lg mx-auto">
+
+    <head>
+      @include('partials/nav.edge')
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      @if ($slots.meta)
+        {{{ await $slots.meta() }}}
+      @endif
+      <title>
+        {{ title || "Let's Learn AdonisJS 6" }}
+      </title>
+    </head>
+
+    <body>
+      <div class="flex flex-col items-center">
+        <div class="flex items-center gap-4 text-xs py-3 border-y border-slate-300">
+          <a href="{{ route('admin.dashboard') }}">
+            Dashboard
+    </a>
+        </div>
+
+        {{{ await $slots.main() }}}
+      </div>
+    </body>
+  </div>
