@@ -21,3 +21,7 @@ yarn-error.log
 .vscode
 # Platform specific
 .DS_Store
+
+
+#images de profil
+storage/avatars
