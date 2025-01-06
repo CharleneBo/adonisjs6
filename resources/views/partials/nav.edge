@@ -15,7 +15,7 @@
       <a href="{{ route('watchlists.index') }}">
         Watchlist
       </a>
-      <a href="{{ route('profiles.edit') }}">Edit Profile</a>
+      <a href="{{ route('profiles.show', {id: auth.user.id }) }}">Profile</a>
       <form method="POST" action="{{ route('auth.logout') }}">
         {{ csrfField() }}
                 <button type="submit">
