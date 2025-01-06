@@ -1,0 +1,26 @@
+@layout.admin()
+<h1>Movies</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Writer/Director</th>
+            <th>Count</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @each(movie in movies)
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.status.name }}</td>
+                <td>{{ movie.writer.fullName }}/{{ movie.director.fullName }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        @end
+    </tbody>
+</table> 
+    
+@end
