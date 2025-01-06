@@ -1,3 +1,5 @@
+import Movie from '#models/movie'
+import User from '#models/user'
 import ProfileService from '#services/profile_service'
 import { profileUpdateValidator } from '#validators/profile'
 import { inject } from '@adonisjs/core'
@@ -9,6 +11,22 @@ import { unlink } from 'node:fs/promises'
 @inject()
 export default class ProfilesController {
   constructor(protected profileService: ProfileService) {}
+
+  async show({ view, params }: HttpContext) {
+    const user = await User.findOrFail(params.id)
+
+    const movies = await Movie.query()
+      .whereHas('watchlist', (query) => query.where('userId', user.id).whereNotNull('watched_at'))
+      .preload('watchlist', (query) => query.where('userId', user.id))
+      .join('watchlists', 'watchlists.movie_id', 'movies.id')
+      .where('watchlists.user_id', user.id)
+      .orderBy('watchlists.watched_at', 'desc')
+      .select('movies.*')
+
+    await user.load('profile')
+
+    return view.render('pages/profiles/show', { user, movies })
+  }
 
   async edit({ view, auth }: HttpContext) {
     const profile = await this.profileService.find()
