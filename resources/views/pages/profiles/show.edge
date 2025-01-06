@@ -15,6 +15,11 @@
         </p>
       @endif
     </div>
+    <div>
+      @button({ href: route('profiles.edit')})
+        Edit profile
+      @end
+    </div>
   </div>
   <h4 class="flex flex-wrap max-w-7xl mx-auto mt-6 font-bold">
     Movies {{ user.fullName }} Has Watched
