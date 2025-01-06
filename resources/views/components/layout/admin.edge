@@ -16,13 +16,14 @@
     </head>
 
     <body>
-
-      <div class="flex items-center gap-4 text-xs py-3 border-y border-slate-300">
-        <a href="{{ route('admin.dashboard') }}">
-          Dashboard
+      <div class="flex flex-col items-center">
+        <div class="flex items-center gap-4 text-xs py-3 border-y border-slate-300">
+          <a href="{{ route('admin.dashboard') }}">
+            Dashboard
     </a>
-      </div>
+        </div>
 
-      {{{ await $slots.main() }}}
+        {{{ await $slots.main() }}}
+      </div>
     </body>
   </div>
