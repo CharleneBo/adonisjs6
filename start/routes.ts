@@ -14,6 +14,7 @@ const RegisterController = () => import('#controllers/auth/register_controller')
 const LoginController = () => import('#controllers/auth/login_controller')
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+const AvatarsController = () => import('#controllers/avatars_controller')
 const ProfilesController = () => import('#controllers/profiles_controller')
 const WatchlistsController = () => import('#controllers/watchlists_controller')
 const HomeController = () => import('#controllers/home_controller')
@@ -21,6 +22,9 @@ const LogoutController = () => import('#controllers/auth/logout_controller')
 const MoviesController = () => import('#controllers/movies_controller')
 
 router.get('/', [HomeController, 'index']).as('home')
+
+router.get('/avatars/:filename', [AvatarsController, 'show']).as('avatars.show')
+
 router.get('/movies', [MoviesController, 'index']).as('movies.index')
 router
   .get('/movies/:slug', [MoviesController, 'show'])
