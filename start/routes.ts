@@ -15,6 +15,7 @@ const LoginController = () => import('#controllers/auth/login_controller')
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 const AdminDashboardController = () => import('#controllers/admin/dashboard_controller')
+const AdminMoviesController = () => import('#controllers/admin/movies_controller')
 const AvatarsController = () => import('#controllers/avatars_controller')
 const ProfilesController = () => import('#controllers/profiles_controller')
 const WatchlistsController = () => import('#controllers/watchlists_controller')
@@ -76,6 +77,7 @@ router
 router
   .group(() => {
     router.get('/', [AdminDashboardController, 'handle']).as('dashboard')
+    router.get('/movies', [AdminMoviesController, 'index']).as('movies.index')
   })
 
   .prefix('/admin')
