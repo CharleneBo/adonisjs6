@@ -4,6 +4,7 @@ import { MovieService } from '#services/movie_service'
 import { movieFilterValidator } from '#validators/movie'
 import type { HttpContext } from '@adonisjs/core/http'
 import router from '@adonisjs/core/services/router'
+import db from '@adonisjs/lucid/services/db'
 
 export default class MoviesController {
   async index({ request, view, auth }: HttpContext) {
@@ -17,11 +18,16 @@ export default class MoviesController {
     movies.baseUrl(router.makeUrl('movies.index'))
     movies.queryString(filters)
 
+    const moviesCountResult = await db.rawQuery('SELECT COUNT(*) as total FROM movies')
+    const moviesCount = moviesCountResult[0].total
+    console.log(moviesCount)
+
     return view.render('pages/movies/index', {
       movies,
       movieStatuses,
       movieSortOptions,
       filters,
+      moviesCount,
     })
   }
 
