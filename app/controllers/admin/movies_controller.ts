@@ -1,7 +1,6 @@
-import Cineast from '#models/cineast'
 import Movie from '#models/movie'
-import MovieStatus from '#models/movie_status'
-import { movieStoreValidator } from '#validators/movie'
+import { MovieService } from '#services/movie_service'
+import { movieValidator } from '#validators/movie'
 import type { HttpContext } from '@adonisjs/core/http'
 import router from '@adonisjs/core/services/router'
 
@@ -27,19 +26,15 @@ export default class MoviesController {
    * Display form to create a new record
    */
   async create({ view }: HttpContext) {
-    const statuses = await MovieStatus.query().orderBy('name')
-    const cineasts = await Cineast.query().orderBy('lastName')
-    return view.render('pages/admin/movies/create', {
-      statuses,
-      cineasts,
-    })
+    const data = await MovieService.getFormatData()
+    return view.render('pages/admin/movies/create', data)
   }
 
   /**
    * Handle form submission for the create action
    */
   async store({ request, response }: HttpContext) {
-    const data = await request.validateUsing(movieStoreValidator)
+    const data = await request.validateUsing(movieValidator)
     await Movie.create(data)
     return response.redirect().toRoute('admin.movies.index')
   }
@@ -47,17 +42,25 @@ export default class MoviesController {
   /**
    * Show individual record
    */
-  async show({ params }: HttpContext) {}
+  async show({ params, view }: HttpContext) {}
 
   /**
    * Edit individual record
    */
-  async edit({ params }: HttpContext) {}
-
+  async edit({ params, view }: HttpContext) {
+    const movie = await Movie.findOrFail(params.id)
+    const data = await MovieService.getFormatData()
+    return view.render('pages/admin/movies/edit', { ...data, movie })
+  }
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request }: HttpContext) {}
+  async update({ params, request, response }: HttpContext) {
+    const data = await request.validateUsing(movieValidator)
+    const movie = await Movie.findOrFail(params.id)
+    await movie.merge(data).save()
+    return response.redirect().toRoute('admin.movies.index')
+  }
 
   /**
    * Delete record
