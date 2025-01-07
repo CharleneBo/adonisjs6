@@ -1,6 +1,6 @@
 import Movie from '#models/movie'
-import Watchlist from '#models/watchlist'
 import type { HttpContext } from '@adonisjs/core/http'
+import db from '@adonisjs/lucid/services/db'
 
 export default class HomeController {
   async index({ view, auth }: HttpContext) {
@@ -23,7 +23,10 @@ export default class HomeController {
       .preload('writer')
       .orderBy('releasedAt', 'desc')
       .limit(9)
+    const moviesCountResult = await db.rawQuery('SELECT COUNT(*) as total FROM movies')
+    console.log('moviesCountResult--------------------------------------', moviesCountResult)
+    const moviesCount = moviesCountResult.rows[0]['total']
 
-    return view.render('pages/home', { comingSoon, recentlyReleased })
+    return view.render('pages/home', { comingSoon, recentlyReleased, moviesCount })
   }
 }

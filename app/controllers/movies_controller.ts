@@ -35,10 +35,6 @@ export default class MoviesController {
       .orderBy('pivot_sort_order')
     await movie.load('director')
     await movie.load('writer')
-    const moviesCountResult = await db.rawQuery('SELECT COUNT(*) as total FROM movies')
-    const moviesCount = moviesCountResult[0].total
-    console.log(moviesCount)
-
-    return view.render('pages/movies/show', { movie, cast, crew, moviesCount })
+    return view.render('pages/movies/show', { movie, cast, crew })
   }
 }
