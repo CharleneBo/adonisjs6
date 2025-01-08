@@ -78,11 +78,12 @@
 
       <div x-data="{ members: {{ js.stringify(crewMembers) }}}" class="flex flex-col gap-3">
         <div class="flex flex-col gap-3">
-          <template x-for="member in members" :key="member.id">
+          <template x-for="(member, index) in members" :key="member.id">
             <div class="flex gap-3">
+              
               <label class="flex flex-col">
                 <span class="text-xs font bold">Crew Member</span>
-                <select name="'crew[${index}][id]'" x-model="members[index].id">
+                <select name="`crew[${index}][id]`" x-model="members[index].cineast_id">
                   @each(cineast in cineasts)
                     <option value="{{ cineast.id }}">
                       {{ cineast.fullName }}
@@ -90,9 +91,10 @@
                   @endeach
                 </select>
               </label>
+
               <label class="flex flex-col">
-                <span class="text-xs font bold">Crew Member</span>
-                <input type="text" :name="'crew[${index}][title]'" x-model="members[index].title" />
+                <span class="text-xs font bold">Title</span>
+                <input type="text" :name="`crew[${index}][title]`" x-model="members[index].title" />
               </label>
 
               <button type="button" @click="members = members.filter(item => item.id !== member.id)">&times;</button>

@@ -25,7 +25,7 @@ export const movieValidator = vine.compile(
     crew: vine
       .array(
         vine.object({
-          id: vine.number().isExists({ table: 'cineast', column: 'id' }),
+          id: vine.number().isExists({ table: 'cineasts', column: 'id' }),
           title: vine.string(),
         })
       )
