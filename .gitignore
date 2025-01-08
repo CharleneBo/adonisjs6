@@ -23,5 +23,6 @@ yarn-error.log
 .DS_Store
 
 
-#images de profil
+# Images of profile and movies
 storage/avatars
+storage/posters
