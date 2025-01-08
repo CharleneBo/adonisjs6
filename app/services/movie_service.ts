@@ -56,6 +56,6 @@ export class MovieService {
     await poster.move(app.makePath('storage/posters'), {
       name: fileName,
     })
-    return `/poster/${fileName}`
+    return `/storage/posters/${fileName}`
   }
 }
