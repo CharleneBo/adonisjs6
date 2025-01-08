@@ -22,5 +22,13 @@ export const movieValidator = vine.compile(
         if (!value) return
         return DateTime.fromJSDate(value)
       }),
+    crew: vine
+      .array(
+        vine.object({
+          id: vine.number().isExists({ table: 'cineast', column: 'id' }),
+          title: vine.string(),
+        })
+      )
+      .optional(),
   })
 )
