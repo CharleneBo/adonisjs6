@@ -4,6 +4,7 @@ import { movieValidator } from '#validators/movie'
 import type { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
 import router from '@adonisjs/core/services/router'
+import db from '@adonisjs/lucid/services/db'
 import { unlink } from 'node:fs/promises'
 
 export default class MoviesController {
@@ -55,15 +56,18 @@ export default class MoviesController {
   async edit({ params, view }: HttpContext) {
     const movie = await Movie.findOrFail(params.id)
     const data = await MovieService.getFormatData()
-    return view.render('pages/admin/movies/createOrEdit', { ...data, movie })
+    const crewMembers = await db
+      .from('crew_movies')
+      .where('movie_id', movie.id)
+      .orderBy('sort_order')
+    return view.render('pages/admin/movies/createOrEdit', { ...data, movie, crewMembers })
   }
   /**
    * Handle form submission for the edit action
    */
   async update({ params, request, response }: HttpContext) {
-    const { poster, ...data } = await request.validateUsing(movieValidator)
+    const { poster, crew, ...data } = await request.validateUsing(movieValidator)
     const movie = await Movie.findOrFail(params.id)
-
     if (poster) {
       data.posterUrl = await MovieService.storePoster(poster)
     } else if (!data.posterUrl && movie.posterUrl) {
@@ -71,6 +75,15 @@ export default class MoviesController {
       data.posterUrl = ''
     }
     await movie.merge(data).save()
+    const crewMembers = crew?.reduce<Record<number, { title: string; sort_order: number }>>(
+      (acc, row, index) => {
+        acc[row.id] = { title: row.title, sort_order: index }
+        return acc
+      },
+      {}
+    )
+    await movie.related('crewMembers').sync(crewMembers ?? [])
+
     return response.redirect().toRoute('admin.movies.index')
   }
 
