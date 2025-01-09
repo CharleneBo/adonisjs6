@@ -10,7 +10,7 @@
     <h1>
       {{ title }}
     </h1>
-{{ inspect(flashMessages.all())}}
+    
     <form
       id="movieForm"
       enctype="multipart/form-data"
@@ -78,23 +78,19 @@
 
       <div x-data="{ members: {{ js.stringify(crewMembers) }} }">
         <div class="flex flex-col gap-3">
-          <template x-for="(member, index) in members" :key="member.id">
+          <template x-for="(member, index) in members" :key="index">
             <div class="flex gap-3">
               <label class="flex flex-col">
                 <span class="text-xs font-bold">Crew Member</span>
-                <select name="`crew[${index}][id]`"  x-model="members[index].cineast_id">
+                <select :name="`crew[${index}][id]`"  x-model="members[index].cineast_id">
                   @each(cineast in cineasts)
                     <option value="{{ cineast.id }}"  >
                       {{ cineast.fullName }}
                     </option>
                   @endeach
                 </select>
-                @if(inputErrorsBag[`crew.${index}.id`])
-                  <div class="error-message">
-                    {{ inputErrorsBag[`crew.${index}.id`][0] }}
-                  </div>
-                @endif
               </label>
+              
 
               <label class="flex flex-col">
                 <span class="text-xs font-bold">Title</span>

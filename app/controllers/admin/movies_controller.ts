@@ -66,11 +66,8 @@ export default class MoviesController {
    * Handle form submission for the edit action
    */
   async update({ params, request, response }: HttpContext) {
-    console.log('1------------------------------')
     const { poster, crew, ...data } = await request.validateUsing(movieValidator)
-    console.log('1 bis ------------------------------')
     const movie = await Movie.findOrFail(params.id)
-    console.log('2 ------------------------------')
     if (poster) {
       data.posterUrl = await MovieService.storePoster(poster)
     } else if (!data.posterUrl && movie.posterUrl) {
@@ -78,7 +75,6 @@ export default class MoviesController {
       data.posterUrl = ''
     }
     await movie.merge(data).save()
-    console.log('3 ------------------------------')
     const crewMembers = crew?.reduce<Record<number, { title: string; sort_order: number }>>(
       (acc, row, index) => {
         acc[row.id] = { title: row.title, sort_order: index }
