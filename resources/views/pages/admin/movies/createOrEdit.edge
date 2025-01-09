@@ -109,7 +109,7 @@
         Cast Members
       </h4>
 
-      <div x-data="{ members: {{ js.stringify(castMembers) }} }">
+      <div x-data="{ members: {{ js.stringify(castMembers || []) }} }">
         <div class="flex flex-col gap-3">
           <template x-for="(member, index) in members" :key="index">
             <div class="flex gap-3">

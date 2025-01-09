@@ -41,7 +41,11 @@ export default class MoviesController {
     if (poster) {
       data.posterUrl = await MovieService.storePoster(poster)
     }
-    const movie = await Movie.create(data)
+    await db.transaction(async (trx) => {
+      const movie = await Movie.create(data, { client: trx })
+      await MovieService.syncCastAndCrew(movie, cast, crew)
+    })
+
     return response.redirect().toRoute('admin.movies.index')
   }
 
